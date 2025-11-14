@@ -63,10 +63,20 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 
 @Composable
 fun MainScreen(modifier: Modifier = Modifier) {
-    var temperature by remember { mutableFloatStateOf(36.5f) }
-    var volume by remember { mutableFloatStateOf(75f) }
-    var brightness by remember { mutableFloatStateOf(0.5f) }
-    var percentage by remember { mutableFloatStateOf(0.25f) }
+    var seekbarFloat by remember { mutableFloatStateOf(0f) }
+    var seekbarString by remember { mutableStateOf("0") }
+
+    var temperatureFloat by remember { mutableFloatStateOf(36.5f) }
+    var temperatureString by remember { mutableStateOf("36.5°C") }
+
+    var volumeFloat by remember { mutableFloatStateOf(75f) }
+    var volumeString by remember { mutableStateOf("75%") }
+
+    var brightnessFloat by remember { mutableFloatStateOf(0.5f) }
+    var brightnessString by remember { mutableStateOf("0.50") }
+
+    var percentageFloat by remember { mutableFloatStateOf(0.25f) }
+    var percentageString by remember { mutableStateOf("0.250") }
 
     Column(
         modifier = modifier
@@ -76,11 +86,29 @@ fun MainScreen(modifier: Modifier = Modifier) {
         verticalArrangement = Arrangement.spacedBy(24.dp)
     ) {
         Text(
-            text = "Float SeekBar 示例 (View版本)",
+            text = "Float SeekBar 示例",
             style = MaterialTheme.typography.headlineMedium,
             fontWeight = FontWeight.Bold,
             modifier = Modifier.align(Alignment.CenterHorizontally)
         )
+
+        // 示例0: SeekBar
+        Column {
+            Text(
+                text = "SeekBar: 0 -> 100",
+                style = MaterialTheme.typography.titleMedium,
+                color = Color.Green
+            )
+            LabeledSeekBarCompose(
+                value = seekbarFloat,
+                onValueChange = { float, string ->
+                    seekbarFloat = float
+                    seekbarString = string
+                },
+                valueRange = FloatRange("0", "100"),
+                modifier = Modifier.fillMaxWidth()
+            )
+        }
 
         // 示例1: 温度调节
         Column {
@@ -90,8 +118,11 @@ fun MainScreen(modifier: Modifier = Modifier) {
                 color = Color.Red
             )
             LabeledSeekBarCompose(
-                value = temperature,
-                onValueChange = { temperature = it },
+                value = temperatureFloat,
+                onValueChange = { float, string ->
+                    temperatureFloat = float
+                    temperatureString = string
+                },
                 valueRange = FloatRange("35.0", "42.9"),
                 labelUnit = "°C",
                 labelPosition = Gravity.TOP,
@@ -107,8 +138,11 @@ fun MainScreen(modifier: Modifier = Modifier) {
                 color = Color.Blue
             )
             LabeledSeekBarCompose(
-                value = volume,
-                onValueChange = { volume = it },
+                value = volumeFloat,
+                onValueChange = { float, string ->
+                    volumeFloat = float
+                    volumeString = string
+                },
                 valueRange = FloatRange("0", "100"),
                 labelUnit = "%",
                 labelPosition = Gravity.RIGHT,
@@ -124,8 +158,11 @@ fun MainScreen(modifier: Modifier = Modifier) {
                 color = Color(0xFF4CAF50)
             )
             LabeledSeekBarCompose(
-                value = brightness,
-                onValueChange = { brightness = it },
+                value = brightnessFloat,
+                onValueChange = { float, string ->
+                    brightnessFloat = float
+                    brightnessString = string
+                },
                 valueRange = FloatRange("0", "1.00"),
                 labelPosition = Gravity.BOTTOM,
                 modifier = Modifier.fillMaxWidth()
@@ -140,8 +177,11 @@ fun MainScreen(modifier: Modifier = Modifier) {
                 color = Color(0xFF9C27B0)
             )
             LabeledSeekBarCompose(
-                value = percentage,
-                onValueChange = { percentage = it },
+                value = percentageFloat,
+                onValueChange = { float, string ->
+                    percentageFloat = float
+                    percentageString = string
+                },
                 valueRange = FloatRange("0", "1.000"),
                 labelPosition = Gravity.LEFT,
                 modifier = Modifier.fillMaxWidth()
@@ -162,10 +202,11 @@ fun MainScreen(modifier: Modifier = Modifier) {
                     style = MaterialTheme.typography.titleSmall,
                     fontWeight = FontWeight.Bold
                 )
-                Text(text = "温度: ${"%.1f".format(temperature)}°C")
-                Text(text = "音量: ${"%.0f".format(volume)}%")
-                Text(text = "亮度: ${"%.2f".format(brightness)}")
-                Text(text = "百分比: ${"%.3f".format(percentage)}")
+                Text(text = "SeekBar: $seekbarString")
+                Text(text = "温度: $temperatureString")
+                Text(text = "音量: $volumeString")
+                Text(text = "亮度: $brightnessString")
+                Text(text = "百分比: $percentageString")
             }
         }
     }

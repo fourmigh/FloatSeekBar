@@ -9,18 +9,18 @@ import androidx.compose.runtime.Composable
 @Composable
 fun LabeledSeekBarCompose(
     value: Float,
-    onValueChange: (Float) -> Unit,
+    onValueChange: (Float, String) -> Unit,
     valueRange: FloatRange = FloatRange.DEFAULT,
     labelUnit: String = "",
     showLabel: Boolean = true,
-    labelPosition: Int = Gravity.START,
+    labelPosition: Int = Gravity.NO_GRAVITY,
     modifier: Modifier = Modifier,
     enabled: Boolean = true
 ) {
 
     AndroidView(
         factory = { context ->
-            LabeledSeekBar(context).apply {
+            FloatSeekBar(context).apply {
                 // 设置范围
                 setRange(valueRange.min, valueRange.max)
 
@@ -37,8 +37,9 @@ fun LabeledSeekBarCompose(
                 setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
                     override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                         if (fromUser) {
-                            val newValue = getProgressFloat()
-                            onValueChange(newValue)
+                            val float = getProgressFloat()
+                            val string = getProgressString()
+                            onValueChange(float, string)
                         }
                     }
 

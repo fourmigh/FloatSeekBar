@@ -10,7 +10,7 @@ import android.widget.TextView
 import kotlin.math.pow
 import kotlin.math.roundToInt
 
-class LabeledSeekBar : LinearLayout {
+class FloatSeekBar : LinearLayout {
     private lateinit var tvLabel: TextView
     private lateinit var seekBar: SeekBar
     private var labelFormat = "%s"
@@ -85,7 +85,7 @@ class LabeledSeekBar : LinearLayout {
         // 获取缩放因子
         get() = 10.0.pow(decimalDigits.toDouble()).toInt()
 
-    private fun updateLabelText() {
+    private fun updateLabelText(): String {
         val value = intToFloat(getProgress())
         val formattedValue = formatFloatValue(value)
         val text = if (labelFormat.contains("%s")) {
@@ -97,6 +97,7 @@ class LabeledSeekBar : LinearLayout {
         }
 
         tvLabel.text = text
+        return text
     }
 
     private fun formatFloatValue(value: Float): String {
@@ -156,6 +157,13 @@ class LabeledSeekBar : LinearLayout {
                     weight = 0f
                 }
             }
+
+            else -> {
+                orientation = VERTICAL
+                removeAllViews()
+                addView(seekBar)
+                tvLabel.gravity = Gravity.CENTER_HORIZONTAL
+            }
         }
     }
 
@@ -194,6 +202,9 @@ class LabeledSeekBar : LinearLayout {
     }
     fun getProgressFloat(): Float {
         return intToFloat(getProgress())
+    }
+    fun getProgressString(): String {
+        return updateLabelText()
     }
 
     fun setProgress(progress: Float) {
