@@ -50,14 +50,17 @@ class LabeledSeekBar : LinearLayout {
                 p1: Int,
                 p2: Boolean
             ) {
+                updateLabelText()
                 changeListener?.onProgressChanged(p0, p1, p2)
             }
 
             override fun onStartTrackingTouch(p0: SeekBar?) {
+                updateLabelText()
                 changeListener?.onStartTrackingTouch(p0)
             }
 
             override fun onStopTrackingTouch(p0: SeekBar?) {
+                updateLabelText()
                 changeListener?.onStopTrackingTouch(p0)
             }
 
@@ -146,6 +149,12 @@ class LabeledSeekBar : LinearLayout {
                 addView(seekBar)
                 addView(tvLabel)
                 tvLabel.gravity = Gravity.CENTER_VERTICAL
+                seekBar.layoutParams = LayoutParams(0, LayoutParams.WRAP_CONTENT).apply {
+                    weight = 1f
+                }
+                tvLabel.layoutParams = LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT).apply {
+                    weight = 0f
+                }
             }
         }
     }

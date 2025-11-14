@@ -85,7 +85,7 @@ fun MainScreen(modifier: Modifier = Modifier) {
         // 示例1: 温度调节
         Column {
             Text(
-                text = "温度调节TOP",
+                text = "温度调节TOP: 35.0 -> 42.9",
                 style = MaterialTheme.typography.titleMedium,
                 color = Color.Red
             )
@@ -102,7 +102,7 @@ fun MainScreen(modifier: Modifier = Modifier) {
         // 示例2: 音量调节
         Column {
             Text(
-                text = "音量调节RIGHT",
+                text = "音量调节RIGHT: 0 -> 100",
                 style = MaterialTheme.typography.titleMedium,
                 color = Color.Blue
             )
@@ -119,7 +119,7 @@ fun MainScreen(modifier: Modifier = Modifier) {
         // 示例3: 亮度调节
         Column {
             Text(
-                text = "亮度调节BOTTOM",
+                text = "亮度调节BOTTOM: 0 -> 1.00",
                 style = MaterialTheme.typography.titleMedium,
                 color = Color(0xFF4CAF50)
             )
@@ -135,7 +135,7 @@ fun MainScreen(modifier: Modifier = Modifier) {
         // 示例4: 百分比（高精度）
         Column {
             Text(
-                text = "高精度百分比LEFT",
+                text = "高精度百分比LEFT: 0 - 1.000",
                 style = MaterialTheme.typography.titleMedium,
                 color = Color(0xFF9C27B0)
             )
